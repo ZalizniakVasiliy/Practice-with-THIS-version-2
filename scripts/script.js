@@ -1,23 +1,20 @@
 const calculator = {
-  read() {
-    this.firstNum = prompt(`Enter the first number:`, ``);
-    if (
-      this.firstNum === null ||
-      isNaN(+this.firstNum) ||
-      this.firstNum.trim() === ""
-    ) {
-      alert(`Error! The first number you entered must be a number.`);
-      return this.read();
+  checkValid(num) {
+    this.num = num;
+    if (this.num === null || isNaN(+this.num) || this.num.trim() === "") {
+      throw new Error(`Value you entered is not valid.`);
     }
-    this.secondNum = prompt(`Enter the second number:`, ``);
-    if (
-      this.secondNum === null ||
-      isNaN(+this.secondNum) ||
-      this.secondNum.trim() === ""
-    ) {
-      alert(`Error! The second number you entered must be a number.`);
-      return this.read();
-    }
+    return true;
+  },
+
+  read(
+    firstNum = prompt(`Enter the first number, please:`),
+    secondNum = prompt(`Enter the second number, please:`)
+  ) {
+    this.checkValid(firstNum);
+    this.checkValid(secondNum);
+    this.firstNum = firstNum;
+    this.secondNum = secondNum;
   },
 
   sum() {
